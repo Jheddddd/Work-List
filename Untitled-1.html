@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0">
+<title>WORK ORDER — Task Register</title>
+
+<!-- PWA & Mobile Web App Metadata -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Task Register">
+<meta name="theme-color" content="#0B2138">
+
+<link rel="manifest" href='data:application/json,{"name":"Task Register Log","short_name":"TaskRegister","start_url":".","display":"standalone","background_color":"#0B2138","theme_color":"#0B2138","icons":[{"src":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj4KPHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIGZpbGw9IiMwQjIxMzgiLz4KPHJlY3QgeD0iOCIgeT0iOCIgd2lkdGg9IjE3NiIgaGVpZ2h0PSIxNzYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzNENkU5NCIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxjaXJjbGUgY3g9Ijk2IiBjeT0iOTYiIHI9IjU0IiBmaWxsPSJub25lIiBzdHJva2U9IiNFODYyMkMiIHN0cm9rZS13aWR0aD0iNyIvPgo8ZyBmaWxsPSIjRTg2MjJDIj4KPHJlY3QgeD0iODgiIHk9IjIyIiB3aWR0aD0iMTYiIGhlaWdodD0iMjIiLz4KPHJlY3QgeD0iODgiIHk9IjE0OCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjIyIi8+CjxyZWN0IHg9IjIyIiB5PSI4OCIgd2lkdGg9IjIyIiBoZWlnaHQ9IjE2Ii8+CjxyZWN0IHg9IjE0OCIgd2lkdGg9IjIyIiBoZWlnaHQ9IjE2Ii8+CjxyZWN0IHg9IjQyIiB5PSI0MiIgd2lkdGg9IjE2IiBoZWlnaHQ9IjIyIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgNTAgNTMpIi8+CjxyZWN0IHg9IjEzNCIgeT0iNDIiIHdpZHRoPSIxNiIgaGVpZ2h0PSIyMiIgdHJhbnNmb3JtPSJyb3RhdGUoNDUgMTQyIDUzKSIvPgo8cmVjdCB4PSI0MiIgeT0iMTI4IiB3aWR0aD0iMTYiIGhlaWdodD0iMjIiIHRyYW5zZm9ybT0icm90YXRlKDQ1IDUwIDEzOSkiLz4KPHJlY3QgeD0iMTM0IiB5PSIxMjgiIHdpZHRoPSIxNiIgaGVpZ2h0PSIyMiIgdHJhbnNmb3JtPSJyb3RhdGUoLTQ1IDE0MiAxMzkpIi8+CjwvZz4KPGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iMzAiIGZpbGw9IiMwQjIxMzgiIHN0cm9rZT0iI0VBRjNGQSIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxwYXRoIGQ9Ik04MiA5NiBMOTIgMTA4IEwxMTIgODQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzZGQ0Y5NyIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+","sizes":"192x192","type":"image/svg+xml"}]}'>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg-navy:#0B2138;
+    --bg-panel:#0F2A44;
+    --bg-panel-2:#123152;
+    --grid-line: rgba(111,168,214,0.07);
+    --rule: #3D6E94;
+    --border: #2C5479;
+    --accent-orange:#E8622C;
+    --accent-yellow:#F2B84B;
+    --accent-green:#6FCF97;
+    --text-primary:#EAF3FA;
+    --text-muted:#7FA0BC;
+    --text-dim:#4C6C87;
+    --font-display:'Oswald', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+    --font-body:'IBM Plex Sans', sans-serif;
+  }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+  html,body{
+    margin:0; padding:0; height:100%;
+    background:var(--bg-navy);
+    color:var(--text-primary);
+    font-family:var(--font-body);
+    overscroll-behavior-y: contain;
+  }
+
+  body{
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .sheet{
+    max-width: 520px;
+    margin: 0 auto;
+    min-height: 100dvh;
+    display:flex;
+    flex-direction:column;
+    border-left:1px solid var(--border);
+    border-right:1px solid var(--border);
+    position:relative;
+  }
+
+  /* ===== TITLE BLOCK ===== */
+  .titleblock{
+    border-bottom: 2px solid var(--rule);
+    background: var(--bg-panel);
+    padding: 14px 16px 0 16px;
+    flex-shrink:0;
+  }
+  .titleblock-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .tb-mark{ display:flex; align-items:center; gap:8px; }
+  .tb-mark svg{ width:30px; height:30px; flex-shrink:0; }
+  .tb-title{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    line-height:1;
+  }
+  .tb-title small{
+    display:block;
+    font-family:var(--font-mono);
+    font-weight:400;
+    font-size:10px;
+    letter-spacing:1.5px;
+    color:var(--accent-orange);
+    margin-top:4px;
+  }
+  .tb-no{
+    font-family:var(--font-mono);
+    font-size:10px;
+    color:var(--text-muted);
+    text-align:right;
+    line-height:1.6;
+    white-space:nowrap;
+    padding-top:2px;
+  }
+  .tb-no span{ color:var(--text-primary); }
+
+  .cfg-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--accent-yellow);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+
+  .tb-cells{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top:1px solid var(--border);
+    margin-top:12px;
+  }
+  .tb-cell{
+    border-right:1px solid var(--border);
+    padding:6px 10px 8px;
+  }
+  .tb-cell:last-child{ border-right:none; }
+  .tb-cell label{
+    display:block;
+    font-family:var(--font-mono);
+    font-size:8.5px;
+    letter-spacing:1px;
+    color:var(--text-dim);
+    text-transform:uppercase;
+    margin-bottom:2px;
+  }
+  .tb-cell .val{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--accent-yellow);
+    font-weight:500;
+  }
+
+  .alert-banner {
+    display: none;
+    background: rgba(232, 98, 44, 0.2);
+    border-bottom: 1px solid var(--accent-orange);
+    color: var(--accent-orange);
+    padding: 8px 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== MODAL DIALOG ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(11, 33, 56, 0.85);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--bg-panel);
+    border: 2px solid var(--rule);
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  }
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+  .modal-field {
+    margin-bottom: 15px;
+  }
+  .modal-field label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .modal-field select, .modal-field input[type="file"] {
+    width: 100%;
+    background: var(--bg-navy);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 8px;
+    outline: none;
+  }
+  .sound-row {
+    display: flex;
+    gap: 8px;
+  }
+  .custom-file-container {
+    display: none;
+    margin-top: 8px;
+  }
+  .custom-file-container.active { display: block; }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .modal-btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  .modal-btn.primary {
+    background: var(--accent-orange);
+    color: #0B2138;
+    border: none;
+    font-weight: bold;
+  }
+
+  /* ===== TABS & LIST ===== */
+  .tabs{
+    display:flex;
+    border-bottom:1px solid var(--border);
+    background:var(--bg-panel);
+    flex-shrink:0;
+  }
+  .tab{
+    flex:1;
+    text-align:center;
+    padding:10px 4px;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--text-muted);
+    border-right:1px solid var(--border);
+    background:transparent;
+    border:none; cursor:pointer; position:relative;
+  }
+  .tab.active{ color:var(--accent-orange); }
+  .tab.active::after{
+    content:""; position:absolute; bottom:-1px; left:0; right:0; height:2px; background:var(--accent-orange);
+  }
+
+  .bom-head{
+    display:grid; grid-template-columns: 40px 1fr 78px 34px; gap:8px; padding:8px 14px;
+    font-family:var(--font-mono); font-size:9px; letter-spacing:1px; color:var(--text-dim); text-transform:uppercase;
+    border-bottom:1px solid var(--border);
+  }
+
+  .list{ flex:1; overflow-y:auto; padding-bottom:12px; }
+
+  .item{
+    display:grid; grid-template-columns: 40px 1fr 78px 34px; gap:8px; align-items:start; padding:11px 14px;
+    border-bottom:1px solid rgba(61,110,148,0.35); position:relative;
+  }
+  .item.done{ background: rgba(111,207,151,0.04); }
+  .item-no{ font-family:var(--font-mono); font-size:12px; color:var(--text-dim); padding-top:2px; }
+  .item.done .item-no{ color: var(--accent-green); }
+  .item-main{ min-width:0; }
+  .item-desc{ font-size:14.5px; line-height:1.35; word-break:break-word; }
+  .item.done .item-desc{ text-decoration: line-through; color: var(--text-muted); }
+  .item-due{ font-family:var(--font-mono); font-size:10px; color:var(--text-dim); margin-top:4px; }
+  .item-due.overdue{ color: var(--accent-orange); }
+  .item-due.warning{ color: var(--accent-yellow); font-weight: bold; }
+
+  .item-tol{ font-family:var(--font-mono); font-size:10px; text-align:right; padding-top:3px; white-space:nowrap; }
+  .tol-critical{ color:var(--accent-orange); }
+  .tol-standard{ color:var(--accent-yellow); }
+  .tol-low{ color:var(--text-muted); }
+
+  .item-check{
+    width:26px; height:26px; border:2px solid var(--rule); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; background:transparent; color:transparent; font-size:15px; flex-shrink:0;
+  }
+  .item-check.checked{ border-color:var(--accent-green); background: rgba(111,207,151,0.12); color:var(--accent-green); }
+
+  .item-del{ position:absolute; right:14px; bottom:8px; font-family:var(--font-mono); font-size:9px; color:var(--text-dim); background:none; border:none; cursor:pointer; }
+  .stamp{ display:inline-block; font-family:var(--font-mono); font-size:8.5px; color:var(--accent-green); border:1px solid var(--accent-green); padding:1px 5px; transform: rotate(-6deg); margin-top:5px; }
+
+  .empty{ text-align:center; padding:60px 30px; color:var(--text-dim); font-family:var(--font-mono); font-size:12px; line-height:1.8; }
+  .empty .big{ font-family:var(--font-display); font-size:16px; color:var(--text-muted); text-transform:uppercase; display:block; margin-bottom:6px; }
+
+  /* ===== ADD BAR ===== */
+  .addbar{ flex-shrink:0; border-top:2px solid var(--rule); background:var(--bg-panel); padding:10px 12px calc(10px + env(safe-area-inset-bottom)); }
+  .addbar-row1{ display:flex; gap:8px; margin-bottom:8px; }
+  #taskInput{ flex:1; background: var(--bg-navy); border:1px solid var(--border); color:var(--text-primary); font-family:var(--font-body); font-size:15px; padding:11px 12px; border-radius:2px; outline:none; }
+  .addbtn{ background: var(--accent-orange); color:#0B2138; border:none; font-family:var(--font-display); font-weight:700; font-size:14px; padding:0 18px; cursor:pointer; text-transform:uppercase; }
+  .addbar-row2{ display:flex; gap:6px; align-items:center; }
+  .addbar-row2 label{ font-family:var(--font-mono); font-size:9px; color:var(--text-dim); text-transform:uppercase; }
+  .pri-btn{ font-family:var(--font-mono); font-size:10px; padding:6px 9px; background:transparent; border:1px solid var(--border); color:var(--text-muted); cursor:pointer; border-radius:2px; }
+  .pri-btn.sel[data-p="critical"]{ border-color:var(--accent-orange); color:var(--accent-orange); background:rgba(232,98,44,0.1);}
+  .pri-btn.sel[data-p="standard"]{ border-color:var(--accent-yellow); color:var(--accent-yellow); background:rgba(242,184,74,0.1);}
+  .pri-btn.sel[data-p="low"]{ border-color:var(--text-muted); color:var(--text-muted); background:rgba(127,160,188,0.08);}
+
+  #dueInput{ margin-left:auto; background:var(--bg-navy); border:1px solid var(--border); color:var(--text-muted); font-family:var(--font-mono); font-size:11px; padding:6px 8px; color-scheme: dark; }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <div class="titleblock">
+    <div class="titleblock-top">
+      <div class="tb-mark">
+        <svg viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="96" cy="96" r="54" fill="none" stroke="#E8622C" stroke-width="9"/>
+          <g fill="#E8622C">
+            <rect x="88" y="22" width="16" height="22"/>
+            <rect x="88" y="148" width="16" height="22"/>
+            <rect x="22" y="88" width="22" height="16"/>
+            <rect x="148" y="88" width="22" height="16"/>
+            <rect x="42" y="42" width="16" height="22" transform="rotate(-45 50 53)"/>
+            <rect x="134" y="42" width="16" height="22" transform="rotate(45 142 53)"/>
+            <rect x="42" y="128" width="16" height="22" transform="rotate(45 50 139)"/>
+            <rect x="134" y="128" width="16" height="22" transform="rotate(-45 142 139)"/>
+          </g>
+          <circle cx="96" cy="96" r="30" fill="#0B2138" stroke="#EAF3FA" stroke-width="4"/>
+        </svg>
+        <div class="tb-title">Task Register<small>WORK ORDER LOG</small></div>
+      </div>
+      <div class="tb-no">
+        DWG NO. <span id="dwgNo">TR-001</span><br>
+        REV <span id="revNo">A</span><br>
+        <button class="cfg-btn" id="openSettingsBtn">⚙ SETTINGS</button>
+      </div>
+    </div>
+
+    <div class="tb-cells">
+      <div class="tb-cell"><label>Date</label><div class="val" id="tbDate">—</div></div>
+      <div class="tb-cell"><label>Open</label><div class="val" id="tbOpen">0</div></div>
+      <div class="tb-cell"><label>Sheet</label><div class="val" id="tbSheet">0 / 0</div></div>
+    </div>
+  </div>
+
+  <div class="alert-banner" id="alertBanner"></div>
+
+  <div class="tabs">
+    <button class="tab active" data-filter="all">All Items</button>
+    <button class="tab" data-filter="pending">Pending</button>
+    <button class="tab" data-filter="done">Complete</button>
+  </div>
+
+  <div class="bom-head">
+    <span>NO.</span>
+    <span>DESCRIPTION</span>
+    <span style="text-align:right">TOLERANCE</span>
+    <span></span>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <div class="addbar">
+    <div class="addbar-row1">
+      <input id="taskInput" type="text" placeholder="Enter task description…" maxlength="140">
+      <button class="addbtn" id="addBtn">Add</button>
+    </div>
+    <div class="addbar-row2">
+      <label>Tol.</label>
+      <button class="pri-btn" data-p="critical">CRIT ±0</button>
+      <button class="pri-btn sel" data-p="standard">STD ±1</button>
+      <button class="pri-btn" data-p="low">LOW ±5</button>
+      <input id="dueInput" type="date">
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal">
+    <div class="modal-title">NOTIFICATION SETTINGS</div>
+    
+    <div class="modal-field">
+      <label for="alertDaysSelect">Trigger Alert Prior To Due Date:</label>
+      <select id="alertDaysSelect">
+        <option value="0">Same Day Only (0 Days)</option>
+        <option value="1">1 Day Before</option>
+        <option value="2">2 Days Before</option>
+        <option value="3">3 Days Before</option>
+      </select>
+    </div>
+
+    <div class="modal-field">
+      <label for="soundSelect">Notification Sound Effect:</label>
+      <div class="sound-row">
+        <select id="soundSelect" style="flex:1;">
+          <option value="chime">Chime (Default)</option>
+          <option value="beep">Digital Beep</option>
+          <option value="sonar">Sonar Alarm</option>
+          <option value="horn">Industrial Horn</option>
+          <option value="custom">📁 Custom Audio File...</option>
+        </select>
+        <button class="modal-btn" id="testSoundBtn">🔊 Test</button>
+      </div>
+      
+      <div class="custom-file-container" id="customFileContainer">
+        <label style="margin-top:8px;">Upload Audio File (.mp3, .wav):</label>
+        <input type="file" id="audioFileInput" accept="audio/*">
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-btn" id="closeSettingsBtn">Cancel</button>
+      <button class="modal-btn primary" id="saveSettingsBtn">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const STORAGE_KEY = 'me_task_register_v1';
+  const CONFIG_KEY = 'me_task_register_config_v1';
+  
+  let tasks = [];
+  let config = { alertDaysBefore: 1, soundPreset: 'chime', customAudioData: null };
+  let filter = 'all';
+  let selectedPriority = 'standard';
+
+  const list = document.getElementById('list');
+  const taskInput = document.getElementById('taskInput');
+  const dueInput = document.getElementById('dueInput');
+  const addBtn = document.getElementById('addBtn');
+  const tbOpen = document.getElementById('tbOpen');
+  const tbSheet = document.getElementById('tbSheet');
+  const tbDate = document.getElementById('tbDate');
+  const revNo = document.getElementById('revNo');
+  const alertBanner = document.getElementById('alertBanner');
+
+  const settingsModal = document.getElementById('settingsModal');
+  const openSettingsBtn = document.getElementById('openSettingsBtn');
+  const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+  const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+  const testSoundBtn = document.getElementById('testSoundBtn');
+  const alertDaysSelect = document.getElementById('alertDaysSelect');
+  const soundSelect = document.getElementById('soundSelect');
+  const customFileContainer = document.getElementById('customFileContainer');
+  const audioFileInput = document.getElementById('audioFileInput');
+
+  function playSound(soundType, customData) {
+    if (soundType === 'custom' && customData) {
+      try {
+        const audio = new Audio(customData);
+        audio.play();
+        return;
+      } catch(e) { console.log('Custom audio error:', e); }
+    }
+
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      const ctx = new AudioContext();
+      
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      const now = ctx.currentTime;
+
+      if (soundType === 'beep') {
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(800, now);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+        osc.start(now);
+        osc.stop(now + 0.15);
+      } else if (soundType === 'sonar') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1200, now);
+        gain.gain.setValueAtTime(0.4, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+        osc.start(now);
+        osc.stop(now + 0.5);
+      } else if (soundType === 'horn') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(150, now);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+        osc.start(now);
+        osc.stop(now + 0.4);
+      } else { // 'chime' (default)
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.25);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+        osc.start(now);
+        osc.stop(now + 0.3);
+      }
+    } catch(e) { console.log('Audio synthesis error:', e); }
+  }
+
+  function checkDueAlerts() {
+    const today = new Date(); today.setHours(0,0,0,0);
+    let alertCount = 0;
+    const thresholdDays = parseInt(config.alertDaysBefore, 10);
+
+    tasks.forEach(t => {
+      if (!t.done && t.due) {
+        const due = new Date(t.due + 'T00:00:00');
+        const diffDays = Math.round((due - today) / 86400000);
+
+        if (diffDays >= 0 && diffDays <= thresholdDays) {
+          alertCount++;
+        }
+      }
+    });
+
+    if (alertCount > 0) {
+      alertBanner.style.display = 'block';
+      alertBanner.textContent = `⚠️ ATTENTION: ${alertCount} WORK ORDER(S) DUE WITHIN ${thresholdDays} DAY(S)`;
+      playSound(config.soundPreset, config.customAudioData);
+    } else {
+      alertBanner.style.display = 'none';
+    }
+  }
+
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      tasks = raw ? JSON.parse(raw) : [];
+      const rawConfig = localStorage.getItem(CONFIG_KEY);
+      if (rawConfig) config = Object.assign(config, JSON.parse(rawConfig));
+    }catch(e){ tasks = []; }
+  }
+
+  function save(){
+    try{ 
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks)); 
+      localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
+    }catch(e){}
+  }
+
+  function fmtDate(d){
+    const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    return d.getDate().toString().padStart(2,'0') + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function priorityLabel(p){
+    if(p==='critical') return {text:'± 0.001 CRIT', cls:'tol-critical'};
+    if(p==='low') return {text:'± 5.000 LOW', cls:'tol-low'};
+    return {text:'± 1.000 STD', cls:'tol-standard'};
+  }
+
+  function dueLabel(dueStr){
+    if(!dueStr) return null;
+    const due = new Date(dueStr + 'T00:00:00');
+    const today = new Date(); today.setHours(0,0,0,0);
+    const diffDays = Math.round((due - today)/86400000);
+    const opts = {month:'short', day:'2-digit'};
+    let label = 'DUE ' + due.toLocaleDateString('en-US', opts).toUpperCase();
+    let overdue = false, warning = false;
+
+    if(diffDays < 0){ label = 'OVERDUE — ' + due.toLocaleDateString('en-US', opts).toUpperCase(); overdue = true; }
+    else if(diffDays === 0){ label = 'DUE TODAY'; overdue = true; }
+    else if(diffDays <= config.alertDaysBefore){ label = `DUE IN ${diffDays} DAY(S)`; warning = true; }
+    return {label, overdue, warning};
+  }
+
+  function render(){
+    tbDate.textContent = fmtDate(new Date());
+    let visible = tasks;
+    if(filter === 'pending') visible = tasks.filter(t => !t.done);
+    if(filter === 'done') visible = tasks.filter(t => t.done);
+
+    tbOpen.textContent = tasks.filter(t => !t.done).length.toString().padStart(2,'0');
+    tbSheet.textContent = visible.length + ' / ' + tasks.length;
+    revNo.textContent = String.fromCharCode(65 + Math.min(25, tasks.filter(t=>t.done).length));
+
+    list.innerHTML = '';
+    if(visible.length === 0){
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      empty.innerHTML = filter === 'done' ? '<span class="big">No items closed out</span>Completed tasks will be stamped here.'
+        : filter === 'pending' ? '<span class="big">Queue is clear</span>No pending work orders.'
+        : '<span class="big">Register is empty</span>Log your first task below.';
+      list.appendChild(empty);
+      return;
+    }
+
+    const order = {critical:0, standard:1, low:2};
+    visible = [...visible].sort((a,b)=>{
+      if(a.done !== b.done) return a.done ? 1 : -1;
+      if(order[a.priority] !== order[b.priority]) return order[a.priority]-order[b.priority];
+      if(a.due && b.due) return a.due < b.due ? -1 : (a.due > b.due ? 1 : 0);
+      return a.itemNo - b.itemNo;
+    });
+
+    visible.forEach(t => {
+      const row = document.createElement('div');
+      row.className = 'item' + (t.done ? ' done' : '');
+
+      const no = document.createElement('div');
+      no.className = 'item-no';
+      no.textContent = String(t.itemNo).padStart(3,'0');
+
+      const main = document.createElement('div');
+      main.className = 'item-main';
+      const desc = document.createElement('div');
+      desc.className = 'item-desc';
+      desc.textContent = t.text;
+      main.appendChild(desc);
+
+      if(t.done){
+        const stamp = document.createElement('span');
+        stamp.className = 'stamp';
+        stamp.textContent = 'COMPLETE';
+        main.appendChild(stamp);
+      } else if(t.due){
+        const dl = dueLabel(t.due);
+        if(dl){
+          const due = document.createElement('div');
+          due.className = 'item-due' + (dl.overdue ? ' overdue' : (dl.warning ? ' warning' : ''));
+          due.textContent = dl.label;
+          main.appendChild(due);
+        }
+      }
+
+      const tol = document.createElement('div');
+      const pl = priorityLabel(t.priority);
+      tol.className = 'item-tol ' + pl.cls;
+      tol.textContent = pl.text;
+
+      const check = document.createElement('button');
+      check.className = 'item-check' + (t.done ? ' checked' : '');
+      check.innerHTML = t.done ? '&#10003;' : '';
+      check.addEventListener('click', () => toggleDone(t.id));
+
+      row.appendChild(no); row.appendChild(main); row.appendChild(tol); row.appendChild(check);
+
+      const del = document.createElement('button');
+      del.className = 'item-del';
+      del.textContent = 'REMOVE';
+      del.addEventListener('click', () => removeTask(t.id));
+      row.appendChild(del);
+
+      list.appendChild(row);
+    });
+
+    checkDueAlerts();
+  }
+
+  function toggleDone(id){ const t = tasks.find(x => x.id === id); if(t){ t.done = !t.done; save(); render(); } }
+  function removeTask(id){ tasks = tasks.filter(x => x.id !== id); save(); render(); }
+
+  function addTask(){
+    const text = taskInput.value.trim();
+    if(!text) return;
+    const maxNo = tasks.reduce((m,t)=>Math.max(m,t.itemNo),0);
+    tasks.push({
+      id: Date.now() + '_' + Math.random().toString(36).slice(2,7),
+      itemNo: maxNo + 1,
+      text,
+      priority: selectedPriority,
+      due: dueInput.value || null,
+      done: false
+    });
+    taskInput.value = ''; dueInput.value = '';
+    save(); render();
+    taskInput.focus();
+  }
+
+  // Sound Picker Modal Handlers
+  openSettingsBtn.addEventListener('click', () => {
+    alertDaysSelect.value = config.alertDaysBefore;
+    soundSelect.value = config.soundPreset;
+    customFileContainer.classList.toggle('active', config.soundPreset === 'custom');
+    settingsModal.classList.add('open');
+  });
+
+  closeSettingsBtn.addEventListener('click', () => {
+    settingsModal.classList.remove('open');
+  });
+
+  soundSelect.addEventListener('change', () => {
+    customFileContainer.classList.toggle('active', soundSelect.value === 'custom');
+  });
+
+  audioFileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        config.customAudioData = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  saveSettingsBtn.addEventListener('click', () => {
+    config.alertDaysBefore = parseInt(alertDaysSelect.value, 10);
+    config.soundPreset = soundSelect.value;
+    save();
+    settingsModal.classList.remove('open');
+    render();
+  });
+
+  testSoundBtn.addEventListener('click', () => {
+    playSound(soundSelect.value, config.customAudioData);
+  });
+
+  addBtn.addEventListener('click', addTask);
+  taskInput.addEventListener('keydown', e => { if(e.key === 'Enter') addTask(); });
+
+  document.querySelectorAll('.pri-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pri-btn').forEach(b => b.classList.remove('sel'));
+      btn.classList.add('sel');
+      selectedPriority = btn.dataset.p;
+    });
+  });
+
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      filter = tab.dataset.filter;
+      render();
+    });
+  });
+
+  load();
+  render();
+})();
+</script>
+
+</body>
+</html>
